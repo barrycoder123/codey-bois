@@ -8,6 +8,9 @@ import random
 def checking_changes_for_git():
     pass
 
+def hard_press():
+    pass
+
 def init(data):
     # load data.xyz as appropriate data.rows, data.cols, data.cellSize, and data.margin
     data.board = []
