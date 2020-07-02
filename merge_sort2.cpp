@@ -11,58 +11,72 @@
  * we then take this element and put it into our sorted array, B
  */
 #include <iostream>
-#include <vector> // will use the vector class  to make things like list slicing very easy
+#include <string>
+#include <algorithm>
+#include <vector> 
 
-using namespace std;
-void merge_sort(vector<int> &arr);
-void merge(vector<int >&left, vector<int> &right, vector<int> &results);
+template<typename T>
+void merge_sort(std::vector<T>& arr);
+template<typename L, typename R, typename A>
+void merge(std::vector<L>& left, std::vector<R>& right, std::vector<A>& results);
 
 int main() {
-    vector<int> my_vector{10, 30, 50, 40};
+    std::vector<int> my_vector{10, 50, 100, 40};
     merge_sort(my_vector);
+    for (int i: my_vector) {
+        std::cout << i << std::endl;
+    }
+    std::vector <char> my_str{'a', 'c', 'b', 'g', 'q'};
+    merge_sort(my_str);
+    // my_str.erase(unique(my_str.begin(), my_str.end()));
 
-    for (int i: my_vector)
-        cout << i << ',';
-    return 0;
+    for (char i: my_str) {
+        std::cout << i << std::endl;
+    }
+    
 }
 
-void merge_sort(vector<int> & arr) {
+// but we can sort not only integers: use templates
+template<typename T> 
+void merge_sort(std::vector<T>& arr) {
     if (arr.size() <= 1) return;
 
     int mid = arr.size() / 2;
-    vector<int> left(arr.begin(), arr.end() - mid);
-    vector<int> right(arr.begin() + mid, arr.end());
+    std::vector<T> left(arr.begin(), arr.end() - mid);
+    std::vector<T> right(arr.begin() + mid, arr.end());
 
     merge_sort(left);
     merge_sort(right);
     merge(left, right, arr);
 }
-void merge(vector<int> &left, vector<int> &right, vector<int> &results)
-{
+// instead of using twice the size of the current array use only 1 times the current size:
+// to do this use allocated the memory needed once outside the merge_sort function and then pass in this memory into the function
+template<typename I>
+void merge_buffer(std::vector<I>& arr) {
+    std::vector <int> tmp_mem(arr.size());
+    merge_sort(arr);
+}
+template<typename L, typename R, typename A>
+void merge(std::vector<L>& left, std::vector<R>& right, std::vector<A>& results) {
     int L_size = left.size();
     int R_size = right.size();
     int i = 0, j = 0, k = 0;
     // two finger algorithm
     while (j < L_size && k < R_size) 
     {
-        if (left[j] < right[k]) {
-            results[i] = left[j];
+        if (left[j] <= right[k]) {
+            results[i] = std::move(left[j]);
             j++;
         }
         else {
-            results[i] = right[k];
+            results[i] = std::move(right[k]);
             k++;
         }
         i++;
     }
-    while (j < L_size) {
-        results[i] = left[j];
-        j++; i++;
-    }
-    while (k < R_size) {
-        results[i] = right[k];
-        k++; i++;
-    }
+    // its easier to use standard algos from STL
+    std::move(&left[j],  &left[L_size],  &results[i]);
+    std::move(&right[k], &right[R_size], &results[i]);
 }
 
 
