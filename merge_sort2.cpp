@@ -33,7 +33,7 @@ int main() {
     for (char i: my_str) {
         std::cout << i << std::endl;
     }
-    
+   
 }
 
 // but we can sort not only integers: use templates
