@@ -17,8 +17,8 @@
 
 template<typename T>
 void merge_sort(std::vector<T>& arr);
-template<typename L, typename R, typename A>
-void merge(std::vector<L>& left, std::vector<R>& right, std::vector<A>& results);
+template<typename A>
+void merge(std::vector<A>& left, std::vector<A>& right, std::vector<A>& results);
 
 int main() {
     std::vector<int> my_vector{10, 50, 100, 40};
@@ -33,7 +33,7 @@ int main() {
     for (char i: my_str) {
         std::cout << i << std::endl;
     }
-    
+   
 }
 
 // but we can sort not only integers: use templates
@@ -56,8 +56,8 @@ void merge_buffer(std::vector<I>& arr) {
     std::vector <int> tmp_mem(arr.size());
     merge_sort(arr);
 }
-template<typename L, typename R, typename A>
-void merge(std::vector<L>& left, std::vector<R>& right, std::vector<A>& results) {
+template<typename A>
+void merge(std::vector<A>& left, std::vector<A>& right, std::vector<A>& results) {
     int L_size = left.size();
     int R_size = right.size();
     int i = 0, j = 0, k = 0;
