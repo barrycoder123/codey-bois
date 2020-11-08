@@ -9,7 +9,7 @@ class Player{
 	// constructor
 	public:
 		Player(string player_symbol){
-			this->player_symbol = "";
+			this->player_symbol = player_symbol;
 		}
 	
 		void play(string player_symbol);
@@ -23,9 +23,6 @@ class Player{
 
 string Player::get_player(){
 	return player_symbol;
-}
-void Player::set_player(string symbol_str){
-	this->player_symbol = symbol_str;
 }
 
 
@@ -80,10 +77,8 @@ int main(){
    	cout << "Player 1 (X)  -  Player 2 (O)" << endl << endl;
    	cout << endl;
 
-	Player player_1("");
-	player_1.set_player("X");
-	Player player_2("");
-	player_2.set_player("O");
+	Player player_1("X");
+	Player player_2("O");
 	string player_move;
 	bool game_over = false;
 	bool player1_turn = true;
@@ -117,6 +112,7 @@ int main(){
 			cin >> player_move;
 			if(player_move == "y"){
 				reset_board();
+                //create_board();
 			}else{
 				game_over = true;
 			}
@@ -128,7 +124,7 @@ int main(){
 			cin >> player_move;
 			if(player_move == "y"){
 				reset_board();
-				create_board();
+				//create_board();
 			}else{
 				game_over = true;
 			}
