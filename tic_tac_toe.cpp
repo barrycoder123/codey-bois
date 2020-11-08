@@ -14,7 +14,6 @@ class Player{
 	
 		void play(string player_symbol);
 		string get_player();
-		void set_player(string symbol_str);
 
 	private:
 		int player_moves[10];
