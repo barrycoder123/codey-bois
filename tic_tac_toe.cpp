@@ -88,7 +88,15 @@ int main(){
                 }
             }else if(available == 0){
                 cout << "this game is a tie" << endl;
-                game_over = true; 
+                cout << "Do you want to play again [y/n]" << endl;
+                cin >> player_move;
+                if(player_move == "y"){
+                    game_over = false;
+                    reset_board();
+                    available = 9;
+                }else{
+                    game_over = true;
+                }
             }
             player1_turn = !player1_turn;
 		}
